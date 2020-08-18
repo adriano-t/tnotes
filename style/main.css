@@ -140,6 +140,40 @@ body{
   cursor:pointer;
   border-radius: 3px;
 }
+
+.delete-confirm{
+  color:red
+}
+.delete-confirm:hover{
+  color:red
+}
+
+.delete-confirm > .note-delete{ 
+  font-weight: bold;
+}
+
+.delete-confirm > .note-delete:hover{ 
+  font-weight: bold;
+}
+
+
+.delete-confirm{
+  color:red
+}
+.delete-confirm:hover{
+  color:red
+}
+
+.delete-confirm > .note-delete{ 
+  font-weight: bold;
+  color:red
+}
+
+.delete-confirm > .note-delete:hover{ 
+  font-weight: bold;
+  color:red
+}
+
 .accordion {
   background-color: #eee;
   color: #444;

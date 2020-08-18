@@ -5,22 +5,46 @@ var textArea;
 var currentNote;
 var currentNoteDOM;
 var simpleMDE;
+var dragging;
+var deleting;
 Number.prototype.pad = function(size) {
     var s = String(this);
     while (s.length < (size || 2)) {s = "0" + s;}
     return s;
 }
 
+function clearDelete()
+{
+    if(deleting != -1)
+    {
+        var DOM = notesDOM[deleting];
+        if(DOM)
+            DOM.classList.remove("delete-confirm");
+    }
+    deleting = -1;
+}
+
 function deleteNote(idx)
 {
-    if(confirm("Cancellare la nota?"))
+    //if(confirm("Cancellare la nota?"))
+    if(deleting == idx)
     {
         notes.splice(idx, 1);
         var DOM = notesDOM[idx];
         if(DOM)
             DOM.parentElement.removeChild(DOM);
         notesDOM.splice(idx, 1);
-        save();
+        save();        
+        clearDelete();
+    }
+    else
+    {
+        clearDelete();
+
+        var DOM = notesDOM[idx];
+        if(DOM)
+            DOM.classList.add("delete-confirm");
+        deleting = idx;
     }
 }
 
@@ -46,14 +70,19 @@ function openNote (idx){
 //create note document element
 function createNoteDOM(title, content)
 {
-     var div = document.createElement("div");
-     div.classList.add("note");
-     var noteId = notes.length;
-     console.log(noteId);
-     div.onclick = function(){var id = noteId; openNote(id);}
-     div.innerHTML = '<div class="note-title">'+title+'</div><div class="note-delete">x</div><div class="note-content">'+content+'</div>';
-     div.getElementsByClassName("note-delete")[0].onclick = function(){var id = noteId; deleteNote(id);}
-     return div;
+    var div = document.createElement("div");
+    div.classList.add("note");
+    var noteId = notes.length;
+    div.draggable = true;
+    div.onmousedown = function(ev){
+        openNote(noteId);
+        if(!ev.target.classList.contains("note-delete"))
+            clearDelete();
+    }
+    div.ondragstart = drag;
+    div.innerHTML = '<div class="note-title">'+title+'</div><div class="note-delete">x</div><div class="note-content">'+content+'</div>';
+    div.getElementsByClassName("note-delete")[0].onclick = function(){var id = noteId; deleteNote(id);}
+    return div;
 }
 
 function addNote(title, content)
@@ -101,6 +130,54 @@ function load() {
         } 
         add();
     });
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    dragging = ev.target
+    //console.log("dragged", ev.target);
+}
+
+function drop(ev) {
+    //console.log("dropped", ev.target);
+    i = 0;
+    console.log(ev);
+    var target = ev.target;
+    while(target && target.tagName.toLowerCase() == "div" && !target.classList.contains("note"))
+        target = target.parentNode; 
+    
+    ev.preventDefault();
+    var rect = target.getBoundingClientRect()
+    //console.log(ev.clientY - rect.top ); 
+    if(ev.clientY - rect.top > (rect.bottom - rect.top)/2)
+         target = target.nextSibling;
+    
+    dragging.parentNode.insertBefore(dragging, target);
+    dragging = null;
+    
+    var idx1 = notesDOM.indexOf(dragging);
+    var idx2 = notesDOM.indexOf(target);
+    
+    var temp = notesDOM[idx1];
+    notesDOM[idx1] = notesDOM[idx2];
+    notesDOM[idx2] = temp;
+    notesDOM[idx1].onmousedown = function(ev){
+        openNote(idx1);
+        if(!ev.target.classList.contains("note-delete"))
+            clearDelete();
+    }
+    notesDOM[idx2].onmousedown = function(ev){
+        openNote(idx2);
+        if(!ev.target.classList.contains("note-delete"))
+            clearDelete();
+    }
+
+    var temp = notes[idx1];
+    notes[idx1] = notes[idx2];
+    notes[idx2] = temp;
 }
 
 function save() {
@@ -151,6 +228,10 @@ window.addEventListener("load", function(){
 
     document.getElementById("add-note").onclick = add;
     document.getElementById("input-title").onchange = writeTitle;
+
+    var list =  document.getElementsByClassName("note-list")[0];
+    list.ondrop = drop;
+    list.ondragover = allowDrop;
 });
 
 
