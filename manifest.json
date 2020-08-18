@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "TNotes",
+  "version": "1",
+  "icons": {
+    "128": "favicon.png"
+  },
+  "permissions": ["storage"],
+  "app": {
+    "background": {
+      "scripts": ["js/background.js"]
+    }
+  },
+  "minimum_chrome_version": "28"
+}

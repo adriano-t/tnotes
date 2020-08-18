@@ -1,0 +1,348 @@
+/*!
+@authors: Adriano Tumminelli
+*/
+
+
+body{
+  font: 12pt Verdana;
+  background:#fafafa;
+  height: 100vh;
+  
+  overflow:hidden;
+}
+
+.note-list{
+  width:100%;
+  height:calc(100% - 20px);
+  overflow:scroll;
+}
+
+.button-add{
+  border-radius: 5px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  font-size: 16px;
+  background-color: #e6e6e6;
+  box-shadow: 1px 1px 3px #000000ad;
+  color: #505050;
+  float: right;
+  margin: 10px 20px;
+  padding: 0px;
+}
+.button-add:hover{
+  background-color: #eee;
+  cursor: pointer;
+}
+.button-add:focus {outline:0;}
+.button-add:active{
+  background-color: #fff;
+}
+
+
+#input-title{
+  background: transparent;
+  border: none; 
+  border-width: 0; 
+  box-shadow: none;
+  width:100%;
+  font: 18pt Verdana;
+  border-radius:3px;
+  padding:5px;
+}
+
+#input-title:focus{
+  background:#fff;
+  outline:0;
+
+}
+.col-left{
+  float:left;
+  width: 200px;
+  padding:5px; 
+  height:calc(100% - 20px);
+  overflow:hidden;
+}
+
+.col-right{
+  padding:5px;
+  float:left;
+  width:calc(100% - 220px);
+  height:calc(100% - 20px);
+  overflow:auto;
+}
+
+.note{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding:5px;
+  height:75px; 
+  margin:5px;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+.note:hover{
+  background: #fff;
+  cursor:pointer;
+}
+.note:active{
+  background: #eee;
+  cursor:pointer;
+}
+
+.note-selected {
+  background:#eaeaea;
+  border-color:#a7a7a7;
+}
+.note-selected:hover{
+  background:#eaeaea;
+}
+
+.note-title{
+  font-weight: bold;
+  font-size:12px;
+  height:20px;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+  width: calc(100% - 16px);
+  float:left;
+}
+
+.note-content{
+  font-size:11px;
+  color:#444;
+  height:calc(100% - 20px);
+  text-overflow: clip;
+  overflow:hidden;
+  clear: both;
+  white-space: pre-wrap;
+}
+
+.note-delete{
+  width: 10px;
+  font-size: 10px; 
+  float: right;
+  /* border-radius: 4px; */
+  /* border: 1px solid #333; */
+  text-align: center;
+}
+
+.note-delete:hover{
+  color:#222;
+  background:#ddd;
+  cursor:pointer;
+  border-radius: 3px;
+}
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 8px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  /*transition: 0.4s;*/
+  border-radius:5px;
+  border:1px solid #ddd;
+  margin-top:5px;
+  font-weight:bold;
+}
+.center{
+  text-align: center;
+}
+.link{
+  text-decoration: none;
+  color:#0c8d51
+}
+
+.link:hover{
+  text-decoration: none;
+  color:#0b9482
+}
+
+h1{
+  text-shadow: 2px 2px 6px #0000001c;
+  margin:4px 4px;
+  width: 120px;
+  display: inline-block;
+}
+
+/*
+.arrow-container{ 
+  width: 30px; 
+  float: left;
+  line-height: 50px;
+}
+.inline {
+  display:inline-block;
+}
+.excontainer{
+  float: left;
+  height: 60px;
+}
+.exname{
+  margin: 2px;
+  padding: 2px;
+}
+.subexname{
+  margin: 2px;
+  padding: 2px;
+  display:inline-block;
+  line-height: 50px;
+}
+.score {
+  display: inline-block;
+  float:right;
+}
+
+.number{
+  padding:2px;
+  width:30px;
+  font-weight:normal;
+}
+
+.certpoints{ 
+  width:45px;
+  display:inline-block;
+  text-align:center;
+  border:1px solid #aaa;
+  background-color: #efefef;
+  padding:2px;
+  border-radius:4px;
+  font-weight:normal;
+}
+
+.maxpoints{
+  width:45px;
+  display:inline-block;
+  text-align:center;
+  border:1px solid #aaa;
+  background-color: #efefef;
+  padding:2px;
+  border-radius:4px;
+  font-weight:normal;
+}
+
+.head{
+  border:1px solid #ddd;
+  background-color: #eee;
+  border-radius:5px;
+  padding:5px;
+}
+
+.box{
+  margin: 5px 0px;
+  display:inline-block;
+}
+
+.section {
+  font-size:10pt;
+  font-weight:normal;
+  padding:2px 0px;
+  margin:2px 0px;
+  color:#333;
+}
+
+.competence{
+  background-color: #34613e;
+  border-radius:4px;
+  color:#eee;
+  display:inline-block;
+  padding:2px 5px;
+  font-size: 10pt;
+}
+
+select{
+  padding: 3px;
+  width:200px;
+}
+textarea {
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+
+.active {
+  background-color: #cdded1;
+}
+.accordion:hover{
+  background-color: #cdcdcd;
+}
+
+
+.select_points{
+  width:70px;
+}
+button::-moz-focus-inner {
+  border: 0;
+}
+
+*/
+
+
+/*
+.active:after {
+  content: "\2212";
+}
+
+.accordion:after {
+  content: '\002B';
+  color: #777;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+*/
+
+/*
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden; 
+}
+
+  
+.button {
+  background-color: #4CAA50; 
+  color: #eee; 
+  border: none; 
+  border-radius:10px;
+  margin: 4px 2px;
+  padding: 12px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #4CCC66;
+  color: white;
+  border-radius:8px;
+}
+
+.button:focus {outline:0;}
+.blockcenter { 
+  margin:0 auto;
+  display: block;
+}
+
+.left { 
+  float:left;
+}
+.right { 
+  float:right;
+}
+*/
