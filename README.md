@@ -2,6 +2,9 @@
 # TNotes
 Multiplatform Minimal Note Editor
 
+# How to use as website
+* Just upload everything and open `index.html`
+
 # How to use as chrome extension
 * Clone the repository
 * Go to `chrome://extensions`
